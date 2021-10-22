@@ -258,4 +258,4 @@ export class Recognize {
     }
 }
 
-modules.export.Recognize = Recognize;
+// modules.export.Recognize = Recognize;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './SpeechProcessing.css';
-import { Utils } from './utils.js'
+import { Utils } from '../../utils.js'
 import { Button } from 'react-bootstrap';
-import { Recognize } from './recognize';
+import { Recognize } from './Recognize';
 
 var hark = require('hark')
 
@@ -285,6 +285,6 @@ class SpeechProcessing extends Component {
 }
 
 
-modules.export.SpeechProcessing = SpeechProcessing;
+// modules.export.SpeechProcessing = SpeechProcessing;
 
-// export default SpeechProcessing;
+export default SpeechProcessing;

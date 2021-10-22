@@ -1,12 +1,31 @@
 {
     "name": "speech-processing-and-recognition-react",
     "version": "1.0.1",
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "del dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
     "dependencies": {
+        "@babel/polyfill": "^7.12.1",
+        "@babel/preset-react": "^7.14.5",
         "dynamic-time-warping": "^1.0.0",
         "hark": "^1.2.3",
         "jquery": "^3.6.0",
         "meyda": "^5.2.2",
         "react": "^17.0.2",
         "react-bootstrap": "^1.6.4"
-    }
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.15.7",
+        "@babel/core": "^7.15.8",
+        "@babel/preset-env": "^7.15.8"
+    },
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "files": [
+        "dist",
+        "README.md"
+    ]
 }
