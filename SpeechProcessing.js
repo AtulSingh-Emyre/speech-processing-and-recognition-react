@@ -285,6 +285,6 @@ class SpeechProcessing extends Component {
 }
 
 
+modules.export.SpeechProcessing = SpeechProcessing;
 
-
-export default SpeechProcessing;
+// export default SpeechProcessing;

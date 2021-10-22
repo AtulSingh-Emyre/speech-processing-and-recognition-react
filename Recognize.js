@@ -257,3 +257,5 @@ export class Recognize {
         return 0;
     }
 }
+
+modules.export.Recognize = Recognize;

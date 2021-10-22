@@ -1,6 +1,6 @@
 {
     "name": "speech-processing-and-recognition-react",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "dependencies": {
         "dynamic-time-warping": "^1.0.0",
         "hark": "^1.2.3",
