@@ -13,8 +13,8 @@ export class Recognize {
     static startTime = null;
     static endTime = null;
     static calibMode = false;
-    static mfccHistoryArr = training1;
-    static mfccHistoryCunters = trainingCnter1.getMfccHistoryCunters();
+    static mfccHistoryArr = [];
+    static mfccHistoryCunters = [];
     static dictionary = ['A','B','C'];
     static bufferSize = 2048;
     static _buffArrSize = 40;      // 40   / 70

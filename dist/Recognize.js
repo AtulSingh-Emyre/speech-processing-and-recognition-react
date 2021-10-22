@@ -251,9 +251,9 @@ _defineProperty(Recognize, "endTime", null);
 
 _defineProperty(Recognize, "calibMode", false);
 
-_defineProperty(Recognize, "mfccHistoryArr", training1);
+_defineProperty(Recognize, "mfccHistoryArr", []);
 
-_defineProperty(Recognize, "mfccHistoryCunters", trainingCnter1.getMfccHistoryCunters());
+_defineProperty(Recognize, "mfccHistoryCunters", []);
 
 _defineProperty(Recognize, "dictionary", ['A', 'B', 'C']);
 
