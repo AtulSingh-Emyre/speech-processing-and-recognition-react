@@ -21,7 +21,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 require("./SpeechProcessing.css");
 
-var _utils = require("../../utils.js");
+var _utils = require("./utils.js");
 
 var _reactBootstrap = require("react-bootstrap");
 

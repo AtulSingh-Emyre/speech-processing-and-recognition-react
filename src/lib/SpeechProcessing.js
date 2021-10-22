@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './SpeechProcessing.css';
-import { Utils } from '../../utils.js'
+import { Utils } from './utils.js'
 import { Button } from 'react-bootstrap';
 import { Recognize } from './Recognize';
 
