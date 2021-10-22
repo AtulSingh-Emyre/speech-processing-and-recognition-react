@@ -152,7 +152,7 @@ class SpeechProcessing extends _react.Component {
         let i = this.state.currentTrainingIndex + 1;
         console.log('state: ', this.state.trained);
 
-        if (this.state.trained || i > _Recognize.Recognize.dictionary.length * 10 - 1) {
+        if (this.state.trained || i > _Recognize.Recognize.dictionary.length * 3 - 1) {
           this.setState({
             trained: true,
             currentTrainingIndex: i,

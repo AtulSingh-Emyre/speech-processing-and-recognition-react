@@ -37,6 +37,7 @@ export class Recognize {
             if (!this.mfccHistoryCunters[this.knnClosestGlobal.transcript] && this.mfccHistoryCunters[this.knnClosestGlobal.transcript] !== 0)
                 this.mfccHistoryCunters[this.knnClosestGlobal.transcript] = 0;
             this.mfccHistoryCunters[this.knnClosestGlobal.transcript]++;
+            console.log('saved mfcc feature',this.mfccHistoryArr);
         }
     }
     /**
@@ -73,14 +74,18 @@ export class Recognize {
 
     static recognize(_buffer, setStateFunc) {
         this.buffer = _buffer;
+        console.log('loaded buffer',this.buffer);
         Meyda.bufferSize = this.bufferSize;
         // calculate mfcc data
         this.bufferMfcc = this.createMfccMetric();
+        console.log('loaded buffer mfcc',this.bufferMfcc);
         // console.log(this.bufferMfcc);
         this.startTime = Utils.getTimestamp();
         setStateFunc("recognizing");
+
         // calculate DTW distance from all available trained data
         this.calculateDistanceArr();
+        
         // get closest one using knn
         var knnClosest;
         if (this.K_factor <= this.mfccHistoryArr.length) {
@@ -93,7 +98,7 @@ export class Recognize {
                 this.knnClosestGlobal = knnClosest;
             }
         }
-
+        console.log('result',knnClosest, knnClosest?.confidence);
         // validate that we have minimal recognition confidence
         if (!knnClosest || knnClosest.confidence < 0.5) {
             this.endTime = Utils.getTimestamp();
@@ -102,8 +107,9 @@ export class Recognize {
         }
         else {
             knnClosest.processTime = Utils.getTimestamp() - this.startTime;
+            setStateFunc("recognized");
         }
-        setStateFunc("recognized");
+        
         // console.log(knnClosest);
         return knnClosest;
     };

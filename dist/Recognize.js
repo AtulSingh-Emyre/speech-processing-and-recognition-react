@@ -55,10 +55,14 @@ class Recognize {
 
 
   static recognize(_buffer, setStateFunc) {
+    var _knnClosest;
+
     this.buffer = _buffer;
+    console.log('loaded buffer', this.buffer);
     Meyda.bufferSize = this.bufferSize; // calculate mfcc data
 
-    this.bufferMfcc = this.createMfccMetric(); // console.log(this.bufferMfcc);
+    this.bufferMfcc = this.createMfccMetric();
+    console.log('loaded buffer mfcc', this.bufferMfcc); // console.log(this.bufferMfcc);
 
     this.startTime = Utils.getTimestamp();
     setStateFunc("recognizing"); // calculate DTW distance from all available trained data
@@ -74,8 +78,9 @@ class Recognize {
       if (knnClosest && knnClosest.transcript !== "") {
         this.knnClosestGlobal = knnClosest;
       }
-    } // validate that we have minimal recognition confidence
+    }
 
+    console.log('result', knnClosest, (_knnClosest = knnClosest) === null || _knnClosest === void 0 ? void 0 : _knnClosest.confidence); // validate that we have minimal recognition confidence
 
     if (!knnClosest || knnClosest.confidence < 0.5) {
       this.endTime = Utils.getTimestamp();
@@ -83,9 +88,9 @@ class Recognize {
       return null;
     } else {
       knnClosest.processTime = Utils.getTimestamp() - this.startTime;
-    }
+      setStateFunc("recognized");
+    } // console.log(knnClosest);
 
-    setStateFunc("recognized"); // console.log(knnClosest);
 
     return knnClosest;
   }
@@ -286,5 +291,6 @@ _defineProperty(Recognize, "saveRecognizedFeature", () => {
     });
     if (!Recognize.mfccHistoryCunters[Recognize.knnClosestGlobal.transcript] && Recognize.mfccHistoryCunters[Recognize.knnClosestGlobal.transcript] !== 0) Recognize.mfccHistoryCunters[Recognize.knnClosestGlobal.transcript] = 0;
     Recognize.mfccHistoryCunters[Recognize.knnClosestGlobal.transcript]++;
+    console.log('saved mfcc feature', Recognize.mfccHistoryArr);
   }
 });
