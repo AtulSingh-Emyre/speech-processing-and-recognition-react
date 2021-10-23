@@ -92,6 +92,7 @@ class SpeechProcessing extends Component {
       setTimeout(() => { this.stopRec(); }, this._stopRecTimeout);
     });
     this.speechHark.on('stopped_speaking', () => {
+
     });
   }
 
@@ -106,18 +107,19 @@ class SpeechProcessing extends Component {
 
     // create blob to process it
     var blob = Utils.bufferToBlob(internalLeftChannel, internalRecordingLength);
-
     if (!blob)
       return;
-
     // create a WAV file to listen to the recorded data
     Utils.getVoiceFile(blob, 0);
+    this.state({statusMsg:'wav file made'});
 
     var reader = new window.FileReader();
     reader.readAsDataURL(blob);
 
     // read the blob and start processing according to the system state (trained or not)
     reader.onloadend = () => {
+      this.state({statusMsg:'trained state: '+this.state.trained});
+
       if (this.state.trained) {
         let result = Recognize.recognize(internalLeftChannel, this.setStateMsgFunc);
         if (result) {
