@@ -2,6 +2,18 @@
 
 require("core-js/modules/web.dom-collections.iterator.js");
 
+require("core-js/modules/es.array-buffer.slice.js");
+
+require("core-js/modules/es.typed-array.float32-array.js");
+
+require("core-js/modules/es.typed-array.sort.js");
+
+require("core-js/modules/es.typed-array.to-locale-string.js");
+
+require("core-js/modules/es.promise.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -27,11 +39,70 @@ var _reactBootstrap = require("react-bootstrap");
 
 var _Recognize = require("./Recognize");
 
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _getRequireWildcardCache(nodeInterop) {
+  if (typeof WeakMap !== "function") return null;
+  var cacheBabelInterop = new WeakMap();
+  var cacheNodeInterop = new WeakMap();
+  return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+    return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+  })(nodeInterop);
+}
 
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) {
+  if (!nodeInterop && obj && obj.__esModule) {
+    return obj;
+  }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+  if (obj === null || typeof obj !== "object" && typeof obj !== "function") {
+    return {
+      default: obj
+    };
+  }
+
+  var cache = _getRequireWildcardCache(nodeInterop);
+
+  if (cache && cache.has(obj)) {
+    return cache.get(obj);
+  }
+
+  var newObj = {};
+  var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+
+  for (var key in obj) {
+    if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+      var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+
+      if (desc && (desc.get || desc.set)) {
+        Object.defineProperty(newObj, key, desc);
+      } else {
+        newObj[key] = obj[key];
+      }
+    }
+  }
+
+  newObj.default = obj;
+
+  if (cache) {
+    cache.set(obj, newObj);
+  }
+
+  return newObj;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
 
 var hark = require('hark');
 
@@ -105,20 +176,21 @@ class SpeechProcessing extends _react.Component {
       var internalLeftChannel = this.leftchannel.slice(0);
       var internalRecordingLength = this.recordingLength; // create blob to process it
 
-      var blob = _utils.Utils.bufferToBlob(internalLeftChannel, internalRecordingLength);
+      var blob = _utils.Utils.bufferToBlob(internalLeftChannel, internalRecordingLength); // console.log('blob created', blob, this.recordingLength, this.leftchannel);
+
 
       if (!blob) return; // create a WAV file to listen to the recorded data
 
       _utils.Utils.getVoiceFile(blob, 0);
 
-      this.state({
+      this.setState({
         statusMsg: 'wav file made'
       });
       var reader = new window.FileReader();
       reader.readAsDataURL(blob); // read the blob and start processing according to the system state (trained or not)
 
       reader.onloadend = () => {
-        this.state({
+        this.setState({
           statusMsg: 'trained state: ' + this.state.trained
         });
 
@@ -130,17 +202,15 @@ class SpeechProcessing extends _react.Component {
               msg: /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, "\"Great! the result is ", '===>', " ", result.transcript, " ", '<===', " try more.\"", /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
                 onClick: () => _Recognize.Recognize.saveRecognizedFeature()
               }, "Add feature to dataset"))
-            });
-            console.log(result.transcript);
-            console.log(this.props);
-            this.props.handleRecognizedMove(result.transcript + '');
+            }); // console.log(result.transcript);
+            // console.log(this.props);
+            // this.props.handleRecognizedMove(result.transcript + '');
           } else {
             this.setState({
               msg: "Didn't Got it! please try to Again loud and clear."
             });
-          }
+          } // console.log(result);
 
-          console.log(result);
         } else {
           let success = _Recognize.Recognize.train(internalLeftChannel, _Recognize.Recognize.dictionary[this.state.currentTrainingIndex % _Recognize.Recognize.dictionary.length], this.setStateMsgFunc, this.state.currentTrainingIndex > _Recognize.Recognize.dictionary.length ? 2 : 1);
 
@@ -156,8 +226,7 @@ class SpeechProcessing extends _react.Component {
     _defineProperty(this, "traingNextWord", success => {
       if (success) {
         // next word
-        let i = this.state.currentTrainingIndex + 1;
-        console.log('state: ', this.state.trained);
+        let i = this.state.currentTrainingIndex + 1; // console.log('state: ', this.state.trained);
 
         if (this.state.trained || i > _Recognize.Recognize.dictionary.length * 3 - 1) {
           this.setState({
@@ -204,8 +273,7 @@ class SpeechProcessing extends _react.Component {
     });
 
     _defineProperty(this, "start", () => {
-      this.startListening();
-      console.log(this.state);
+      this.startListening(); // console.log(this.state);
 
       if (!this.state.trained) {
         this.setState({
@@ -277,10 +345,11 @@ class SpeechProcessing extends _react.Component {
    * Here we record the data and make a signal when there is a speech start recognized
    */
 
-
   /**
    * Start listening to media devices
    */
+
+
   async startListening() {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true
