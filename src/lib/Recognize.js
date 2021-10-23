@@ -1,6 +1,6 @@
 var Meyda = require('meyda')
 var DynamicTimeWarping = require('dynamic-time-warping')
-
+import {Utils} from "./utils";
 export class Recognize {
 
     /******************************************************************************
