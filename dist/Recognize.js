@@ -9,13 +9,13 @@ require("core-js/modules/es.array.sort.js");
 
 require("core-js/modules/es.number.to-fixed.js");
 
-var _utils = require("./utils");
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var Meyda = require('meyda');
 
 var DynamicTimeWarping = require('dynamic-time-warping');
+
+var _utils = require("./utils");
 
 class Recognize {
   /******************************************************************************
