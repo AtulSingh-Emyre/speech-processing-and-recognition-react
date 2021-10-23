@@ -9,6 +9,8 @@ require("core-js/modules/es.array.sort.js");
 
 require("core-js/modules/es.number.to-fixed.js");
 
+var _utils = require("./utils");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var Meyda = require('meyda');
@@ -64,7 +66,7 @@ class Recognize {
     this.bufferMfcc = this.createMfccMetric();
     console.log('loaded buffer mfcc', this.bufferMfcc); // console.log(this.bufferMfcc);
 
-    this.startTime = Utils.getTimestamp();
+    this.startTime = _utils.Utils.getTimestamp();
     setStateFunc("recognizing"); // calculate DTW distance from all available trained data
 
     this.calculateDistanceArr(); // get closest one using knn
@@ -83,11 +85,11 @@ class Recognize {
     console.log('result', knnClosest, (_knnClosest = knnClosest) === null || _knnClosest === void 0 ? void 0 : _knnClosest.confidence); // validate that we have minimal recognition confidence
 
     if (!knnClosest || knnClosest.confidence < 0.5) {
-      this.endTime = Utils.getTimestamp();
+      this.endTime = _utils.Utils.getTimestamp();
       setStateFunc("not recognized");
       return null;
     } else {
-      knnClosest.processTime = Utils.getTimestamp() - this.startTime;
+      knnClosest.processTime = _utils.Utils.getTimestamp() - this.startTime;
       setStateFunc("recognized");
     } // console.log(knnClosest);
 
